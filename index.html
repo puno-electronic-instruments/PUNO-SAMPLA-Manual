@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PUNO SAMPLA 2.0.0 — User Manual</title>
+  <style>
+    :root {
+      color-scheme: light;
+      background: #f7f5ef;
+      color: #252822;
+      font: 100%/1.65 "Instrument Sans", system-ui, sans-serif;
+    }
+    body {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 5vw, 4rem);
+    }
+    header {
+      padding: clamp(2rem, 7vw, 5rem) 0 1.75rem;
+      border-bottom: 2px solid #344736;
+    }
+    .brand-logo {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: .75rem;
+    }
+    header p { margin: 0 0 .65rem; color: #425343; }
+    h1, h2 { line-height: 1.15; }
+    h1 {
+      margin: 0;
+      font: 700 clamp(2rem, 6vw, 4rem)/1.1 "Instrument Sans", system-ui, sans-serif;
+      letter-spacing: -.045em;
+    }
+    nav {
+      margin: 2rem 0;
+      padding: clamp(1rem, 4vw, 2rem);
+      background: #eaece3;
+      border-radius: .5rem;
+    }
+    nav h2 { margin-top: 0; }
+    nav ul {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .6rem 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    a { color: #265135; text-underline-offset: .18em; }
+    a:hover { color: #793c22; }
+    a:focus-visible { outline: 2px solid #793c22; outline-offset: 4px; }
+    main section {
+      padding: 1.4rem 0;
+      border-top: 1px solid #c5c9bc;
+      scroll-margin-top: 1rem;
+    }
+    main h2 { margin: 0 0 .8rem; font-size: 1.4rem; }
+    main section:target h2 { color: #793c22; }
+    main p, main ul { margin: .65rem 0 0; }
+    main p { width: 100%; text-align: justify; }
+    main ul { max-width: 72ch; }
+    main ul { padding-inline-start: 1.4rem; }
+    main li + li { margin-top: .5rem; }
+    main ol, main dl { max-width: 72ch; }
+    main h3 { margin: 1.25rem 0 .4rem; }
+    main dt { font-weight: 700; margin-top: .6rem; }
+    main dd { margin-inline-start: 0; }
+    figure { margin: 1rem 0 0; }
+    .panel { display: block; width: 100%; height: auto; }
+    figcaption { margin-top: .5rem; }
+    .table-scroll { overflow-x: auto; margin-top: .8rem; padding-bottom: .2rem; }
+    .table-scroll:focus-visible { outline: 2px solid #793c22; outline-offset: 2px; }
+    table { width: 100%; border-collapse: collapse; }
+    .table-scroll table { min-width: 25rem; }
+    .output-table { margin-top: .8rem; }
+    caption { text-align: left; font-weight: 700; padding-bottom: .35rem; }
+    th, td { text-align: left; vertical-align: top; padding: .45rem .55rem;
+      border-bottom: 1px solid #c5c9bc; overflow-wrap: normal; }
+    thead { background: #eaece3; }
+    footer { padding: 1.25rem 0 3rem; border-top: 1px solid #c5c9bc; }
+    @media (max-width: 48rem) {
+      nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      main p { text-align: left; }
+    }
+    @media (max-width: 30rem) {
+      nav ul { grid-template-columns: 1fr; }
+      th, td { padding: .4rem .3rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img class="brand-logo" src="assets/PUNO-Signal-Primary.svg"
+         width="224" height="90" alt="PUNO Electronic Instruments">
+    <p>Manual for VCV Rack 2</p>
+    <h1>PUNO SAMPLA 2.0.0 — User Manual</h1>
+  </header>
+
+  <nav id="contents" aria-labelledby="contents-title">
+    <h2 id="contents-title">On this page</h2>
+    <ul>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#getting-started">Getting Started</a></li>
+      <li><a href="#panel-overview">Panel Overview</a></li>
+      <li><a href="#recording">Recording, Freeze and Playback</a></li>
+      <li><a href="#granular-engine">Granular Engine</a></li>
+      <li><a href="#cv-modulation">CV Modulation</a></li>
+      <li><a href="#inputs-and-outputs">Inputs and Outputs</a></li>
+      <li><a href="#practical-examples">Practical Examples</a></li>
+      <li><a href="#technical-notes">Technical Notes and Troubleshooting</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>SAMPLA is a stereo sampler and granular instrument. It listens to the audio patched into its inputs and keeps up to 60 seconds in a rolling buffer. Press <strong>FREEZE</strong> to capture the most recent audio, then play it once, loop it, or use it as the source for a stereo grain texture.</p>
+      <p>SAMPLA captures audio through its inputs. To use a WAV or another audio file, play it through a separate source and patch that source into SAMPLA.</p>
+    </section>
+
+    <section id="getting-started">
+      <h2>Getting Started</h2>
+      <p>Start with a sound you know, such as a synth phrase or a drum pattern. Patch it into <strong>L/MONO</strong>, adding <strong>R</strong> if your source is stereo. Connect <strong>PLAY L</strong> and <strong>PLAY R</strong> to your listening chain, and turn up <strong>LEVEL</strong> in the <strong>OUTPUT</strong> section.</p>
+      <p>Let the phrase run so SAMPLA can collect it in the rolling buffer. Set <strong>CAP LEN</strong> to the amount of recent audio you want to keep. Two seconds is a good starting point. Press <strong>FREEZE</strong> just after the part you want to capture and wait for <strong>FROZEN</strong> to turn green.</p>
+      <p>For a first listen, set <strong>MODE</strong> to <strong>O-SHOT</strong> and the direction to <strong>FORW</strong>. Turn <strong>START</strong> all the way down and <strong>END</strong> all the way up, then center <strong>SPEED</strong>. Press <strong>PLAY</strong> to hear the capture once.</p>
+      <p>Turn <strong>SPEED</strong> a little counterclockwise and press <strong>PLAY</strong> again to hear the phrase slower and lower in pitch. Or switch to <strong>LOOP</strong> and press <strong>PLAY</strong> to let it repeat while you adjust the speed.</p>
+    </section>
+
+    <section id="panel-overview">
+      <h2>Panel Overview</h2>
+      <figure>
+        <img class="panel" src="assets/screenshots/sampla.png" width="2917" height="2170"
+             alt="SAMPLA front panel with Record / Buffer, Playback and Window / Speed across the top, stereo outputs in the middle and the Granular Engine below.">
+        <figcaption><a href="assets/screenshots/sampla.png">View the full-resolution panel</a></figcaption>
+      </figure>
+      <dl>
+        <dt>Record / Buffer</dt><dd>Audio inputs, signal and capture indicators, capture length and Freeze controls.</dd>
+        <dt>Playback</dt><dd>Transport buttons and triggers, mode, direction, crossfade, wow and flutter.</dd>
+        <dt>Window / Speed</dt><dd>Start and end of the playback region, speed and their CV controls.</dd>
+        <dt>Output</dt><dd>Four stereo pairs, plus playback level and dry/wet mix.</dd>
+        <dt>Granular Engine</dt><dd>Source region, engine switch, grain controls and their CV inputs.</dd>
+      </dl>
+    </section>
+
+    <section id="recording">
+      <h2>Recording, Freeze and Playback</h2>
+      <h3>The rolling buffer</h3>
+      <p>SAMPLA automatically records incoming audio into a circular buffer. Once full, each new frame replaces the oldest. <strong>SIGNAL</strong> follows the level at <strong>L/MONO</strong>. Audio connected only to <strong>R</strong> does not light this indicator.</p>
+      <h3>Freeze a capture</h3>
+      <p>Press <strong>FREEZE</strong> or send a rising edge to <strong>FRZ TR</strong>. <strong>CAP LEN</strong> sets how much recent audio to capture, from 0.1 to 60 seconds (default 10 seconds). The effective length is sampled at the trigger. If less audio has been recorded, the capture contains only the available portion.</p>
+      <p><strong>FROZEN</strong> flashes red while the copy is in progress. It turns orange briefly when the copy completes, then stays green while a capture is available. Recording pauses during the copy and resumes automatically. A trigger can be ignored while a copy is underway or when both frozen buffers are still in use.</p>
+      <h3>Play the capture</h3>
+      <p>Press <strong>PLAY</strong> or patch a rising edge into <strong>PLAY TR</strong>. <strong>RUN</strong> lights while the playback transport is active. Press <strong>STOP</strong> or trigger <strong>STOP TR</strong> to end playback. <strong>STOP</strong> takes priority over a simultaneous play event or an automatic restart after Freeze.</p>
+      <p><strong>O-SHOT</strong> plays the window once, <strong>LOOP</strong> repeats it, and <strong>P-PONG</strong> alternates direction at the boundaries. <strong>FORW</strong> starts from the beginning of the window and <strong>REV</strong> from its end. <strong>START</strong> and <strong>END</strong> each span 0–100% of the capture. One-shot takes its window at the play event. Loop and ping-pong can follow changes during playback.</p>
+      <p><strong>SPEED</strong> spans −2 to +2 octaves (¼× to 4× before modulation by <strong>WOW</strong> and <strong>FLUTTER</strong>). The center is original speed. <strong>XFADE</strong> sets the crossfade at loop seams and ping-pong turns from 0 to 500 ms (default 30 ms). Short windows limit the effective fade. Automatic click protection remains active at zero. <strong>WOW</strong> adds slow periodic speed variation and <strong>FLUTTER</strong> adds faster irregular variation. Both range from 0 to 100% and default to zero.</p>
+      <p>When a new freeze completes during playback, the transport restarts on the new capture with a short transition. When playback is stopped, the new capture waits for <strong>PLAY</strong>.</p>
+    </section>
+
+    <section id="granular-engine">
+      <h2>Granular Engine</h2>
+      <p>With a capture ready, set the engine switch to <strong>ON</strong> and listen at <strong>GRAIN L/R</strong>. The grain engine runs independently of the playback transport, so it can sound while <strong>RUN</strong> is off. <strong>SOURCE</strong> selects the entire capture (<strong>FULL</strong>) or the region between <strong>START</strong> and <strong>END</strong> (<strong>WINDOW</strong>).</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Grain controls">
+  <table>
+          <caption>Grain controls</caption>
+          <thead><tr><th scope="col">Control</th><th scope="col">Range</th><th scope="col">What it changes</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">SIZE</th><td>10–1000 ms</td><td>Requested grain length. The engine can shorten a grain to fit the selected region.</td></tr>
+            <tr><th scope="row">DENSITY</th><td>1–100 grains/s</td><td>Grain scheduling rate. At most 64 grains can overlap.</td></tr>
+            <tr><th scope="row">POSITION</th><td>0–100%</td><td>Moves grain starts through the usable part of the selected region.</td></tr>
+            <tr><th scope="row">SPRAY</th><td>0–100%</td><td>Randomizes the starting position around <strong>POSITION</strong>, within the region.</td></tr>
+            <tr><th scope="row">PITCH</th><td>−24 to +24 semitones</td><td>Transposes each new grain.</td></tr>
+            <tr><th scope="row">JITTER</th><td>0–100%</td><td>Varies the time between grains. Zero gives regular spacing.</td></tr>
+            <tr><th scope="row">SPREAD</th><td>0–100%</td><td>Widens the random distribution of new grains toward the left and right. Zero retains the capture’s stereo placement.</td></tr>
+            <tr><th scope="row">LEVEL</th><td>0–100%</td><td>Sets the level of the <strong>GRAIN</strong> outputs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Important note.</strong> In <strong>WINDOW</strong>, new grains require <strong>END</strong> to be higher than <strong>START</strong> after CV is applied. A very short region may also prevent new grains from fitting.</p>
+    </section>
+
+    <section id="cv-modulation">
+      <h2>CV Modulation</h2>
+      <p>The CV amount knobs set how far a voltage moves its control around the manual setting. With <strong>± AMT</strong>, the center gives zero modulation and negative settings invert the response. <strong>AMT</strong> and <strong>ATT</strong> scale modulation from zero to full depth. Effective control values stay within their operating ranges.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Modulation and trigger inputs">
+  <table>
+          <caption>Modulation and trigger inputs</caption>
+          <thead><tr><th scope="col">Input</th><th scope="col">Amount</th><th scope="col">Response at full depth</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">CAP CV</th><td>± AMT</td><td>±10 V spans the full capture-length range. The value is read when Freeze starts.</td></tr>
+            <tr><th scope="row">START, END CV</th><td>AMT</td><td>+10 V adds the full window range, and −10 V subtracts it.</td></tr>
+            <tr><th scope="row">SPEED CV</th><td>AMT</td><td>1 V/octave before the speed limits.</td></tr>
+            <tr><th scope="row">SIZE, DENSITY, POSITION, SPRAY, PITCH, JITTER, LEVEL CV</th><td>± AMT</td><td>±10 V spans the full range of the corresponding grain control.</td></tr>
+            <tr><th scope="row">SPREAD CV</th><td>ATT</td><td>+10 V increases spread by the full range, and −10 V decreases it. The result sets the spread of each new grain.</td></tr>
+            <tr><th scope="row">FRZ TR, PLAY TR, STOP TR</th><td>—</td><td>A rising edge performs the corresponding action. A held gate does not repeatedly trigger it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="inputs-and-outputs">
+      <h2>Inputs and Outputs</h2>
+      <p>Use <strong>L/MONO</strong> alone to feed the same signal to both sides. Connecting <strong>R</strong> replaces the right side with its own signal. With only <strong>R</strong> patched, the left side stays silent. Each audio jack reads the first channel of a polyphonic cable. Each output jack carries one audio channel.</p>
+      <table class="output-table">
+        <caption>Stereo output pairs</caption>
+        <thead><tr><th scope="col">Pair</th><th scope="col">Signal</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">THRU L/R</th><td>Live audio inputs, after mono normalization.</td></tr>
+          <tr><th scope="row">PLAY L/R</th><td>Sample playback, controlled by <strong>LEVEL</strong> in the Output section.</td></tr>
+          <tr><th scope="row">MIX L/R</th><td>Linear blend of THRU and PLAY. Turn <strong>MIX</strong> fully down for dry, or fully up for playback.</td></tr>
+          <tr><th scope="row">GRAIN L/R</th><td>Granular audio, controlled by <strong>LEVEL</strong> in the Granular Engine section.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="practical-examples">
+      <h2>Practical Examples</h2>
+      <h3>Try it: Loop a phrase at a new speed</h3>
+      <p>Patch a short rhythmic phrase into the audio inputs, set <strong>CAP LEN</strong> to its approximate duration and press <strong>FREEZE</strong>. Set <strong>MODE</strong> to <strong>LOOP</strong>, press <strong>PLAY</strong>, and listen at <strong>PLAY L/R</strong>. Adjust <strong>START</strong> and <strong>END</strong> to trim the loop. Turn <strong>SPEED</strong> down to slow and lower it, or up to accelerate and raise it. Increase <strong>XFADE</strong> if the seam is audible.</p>
+      <h3>Try it: Replace a loop while it plays</h3>
+      <p>Leave a capture looping and feed a different phrase into the audio inputs. Allow enough time for the new phrase to fill the length set by <strong>CAP LEN</strong>, then press <strong>FREEZE</strong>. Keep listening at <strong>PLAY L/R</strong>. When the copy completes, the transport switches to the new phrase. If a rapid second Freeze is ignored, wait for the previous copy and transition to finish and try again.</p>
+      <h3>Try it: Build a stereo grain texture</h3>
+      <p>Freeze a sustained or slowly changing sound. Set <strong>SOURCE</strong> to <strong>FULL</strong>, switch the granular engine <strong>ON</strong>, and patch both <strong>GRAIN</strong> outputs. Start with <strong>SIZE</strong> near 200 ms and <strong>DENSITY</strong> near 10 grains/s. Move <strong>POSITION</strong> to find a useful part of the capture, then raise <strong>SPREAD</strong> to distribute the grains across stereo. For movement, patch a slow LFO into <strong>POSITION CV</strong> and turn its <strong>± AMT</strong> slightly clockwise.</p>
+    </section>
+
+    <section id="technical-notes">
+      <h2>Technical Notes and Troubleshooting</h2>
+      <p>This manual covers SAMPLA 2.0.0, tested in VCV Rack Pro 2.6.6 on macOS ARM64. Rack saves the module’s settings and patch connections. Captured audio and transport state are volatile. Freeze a fresh capture after reopening a patch or changing the engine sample rate.</p>
+      <dl>
+        <dt>THRU works, but PLAY is silent</dt><dd>Wait for a complete capture, press <strong>PLAY</strong> and check playback <strong>LEVEL</strong>. In <strong>O-SHOT</strong>, playback ends automatically. Use <strong>LOOP</strong> if you want it to continue.</dd>
+        <dt>GRAIN is silent</dt><dd>Check that a capture is available, the granular engine is <strong>ON</strong>, and its <strong>LEVEL</strong> is above zero. Try <strong>FULL</strong> to rule out a narrow or inverted window.</dd>
+        <dt>The captured phrase is shorter than expected</dt><dd>Give the source time to fill the requested length and check <strong>CAP CV</strong> and <strong>± AMT</strong>. The length is fixed when the trigger is accepted.</dd>
+        <dt>The patch cannot find SAMPLA</dt><dd>Check that the release plugin is installed. A patch saved with the earlier development identifiers needs a migrated copy. Keep the original patch and consult the release’s migration instructions.</dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#contents">Back to contents</a>
+    <p>Contact: <a href="mailto:hello@punoelectronicinstruments.com">hello@punoelectronicinstruments.com</a></p>
+    <p>Website: <a href="https://www.punoelectronicinstruments.com">www.punoelectronicinstruments.com</a></p>
+  </footer>
+</body>
+</html>
